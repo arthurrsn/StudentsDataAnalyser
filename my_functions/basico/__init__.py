@@ -1,20 +1,30 @@
-def menuInicial():
-    print('''
-STUDANT DATA ANALYSER
-          
-[1] Leitura de dados
-[2] Exibir estatísticas
-[3] Adicionar Aluno
+from os import system
+from platform import system as platform_system
 
-Obs: Resposta em\033[1;33m números\033[m
-    ''')
+def identificar_sistema_operacional() -> str:
+    """
+    Identifica o sistema operacional do dispositivo.
 
-    while True:
-        try:
-            escolha_modo = int(input('--> '))
-        except (ValueError, TypeError):
-            print('Valor inválido.\033[1;31m Digite apenas números.\033[m')
-            continue
-        else:
-            break
+    Returns:
+    str: O nome do sistema operacional.
+    """
+    sistema = platform_system()
+    if sistema == "Windows":
+        return "Windows"
+    elif sistema == "Darwin":
+        return "Mac"
+    elif sistema == "Linux":
+        return "Linux"
+    else:
+        return "Sistema não identificado"
 
+sistema_operacional = identificar_sistema_operacional()
+
+def clear() -> None:
+    """
+    Limpa a tela do terminal, dependendo do sistema operacional.
+    """
+    if sistema_operacional == 'Windows':
+        return system('cls')
+    elif sistema_operacional == 'Linux' or sistema_operacional == 'Mac':
+        return system('clear')
